@@ -83,7 +83,10 @@ namespace FEVHelper.VievModels
         /// <param name="parameter"></param>
         private void OnSelectionChange(object parameter)
         {
-            MessageBox.Show("Milosc");
+            RoutedPropertyChangedEventArgs<object> e = (RoutedPropertyChangedEventArgs<object>)parameter;
+            var newValue = e.NewValue;
+            DirectoryItemViewModel b = (DirectoryItemViewModel)newValue;
+            LolPath = b.FullPath;
         }
 
         #endregion

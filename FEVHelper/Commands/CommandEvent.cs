@@ -3,19 +3,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Input;
 
 namespace FEVHelper.Commands
 {
-    public class CommandHandler : ICommand
+    public class CommandEvent
     {
         #region Private Members
         private readonly Predicate<object> _canExecute;
-        private readonly Action<object>_execute;
+        private readonly Action<object> _execute;
         #endregion
 
         #region Constructors
-        public CommandHandler(Predicate<object> canExecute, Action<object> execute)
+        public CommandEvent(Predicate<object> canExecute, Action<object> execute)
         {
             // Assign methods to the delegates
             _canExecute = canExecute;
@@ -36,6 +35,5 @@ namespace FEVHelper.Commands
             // Invoke the delegate
             _execute(parameter);
         }
-
     }
 }

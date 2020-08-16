@@ -57,9 +57,16 @@
                           SelectedItemChanged="FolderView_SelectedItemChanged"
                           Margin="0,5,0,0">
 
-                    <i:Interaction.Triggers>
+                    <!--<i:Interaction.Triggers>
                         <i:EventTrigger EventName="SelectedItemChanged">
                             <i:InvokeCommandAction Command="{Binding SelectedItemChangedCommand}" CommandParameter="argument"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>-->
+
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="SelectedItemChanged">
+                            <cmd:EventToCommand Command="{Binding SelectedItemChangedCommand}"
+                                                PassEventArgsToCommand="True" />
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
 

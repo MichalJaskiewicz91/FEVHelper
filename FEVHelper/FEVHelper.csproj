@@ -79,12 +79,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Commands\CommandEvent.cs" />
     <Compile Include="Commands\CommandHandler.cs" />
     <Compile Include="VievModels\Base\BaseViewModel.cs" />
     <Compile Include="VievModels\DirectoryItemViewModel.cs" />
     <Compile Include="VievModels\Base\RelayCommand.cs" />
     <Compile Include="VievModels\DirectoryStructureViewModel.cs" />
     <Compile Include="VievModels\DummyDataViewModel.cs" />
+    <Compile Include="ViewModel\MainViewModel.cs" />
+    <Compile Include="ViewModel\ViewModelLocator.cs" />
     <Page Include="Basics.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
