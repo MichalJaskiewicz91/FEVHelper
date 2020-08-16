@@ -1,0 +1,146 @@
+﻿<Window x:Class="StringerWPF.WPF_UI_Tutorial.Basics"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:StringerWPF.WPF_UI_Tutorial"
+        mc:Ignorable="d"
+        Title="Basics" Height="800" Width="400">
+    <Border Padding="20">
+        <StackPanel Orientation="Vertical">
+            <!-- Buttons-->
+            <Grid>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <Button x:Name ="ApplyButton" Margin="0,0,10,0" Content="Apply" Grid.Column="0" Click="ApplyButton_Click" Height="20" VerticalAlignment="Top"/>
+                <Button x:Name ="ResetButton" Content="Reset" Grid.Column="1" Click="ResetButton_Click"/>
+                <Button x:Name ="RefreshButton" Margin="10,0,0,0" Content="Refresh" Grid.Column="2" Click="RefreshButton_Click" RenderTransformOrigin="0.502,0.5"/>
+
+            </Grid>
+
+            <!-- Thierry Henry-->
+            <TextBlock FontSize="13" FontWeight="Bold" Margin="0,10,0,0" Text="Thierry Henry"></TextBlock>
+
+            <!-- Description-->
+            <TextBlock FontSize="13" Margin="0,5,0,0" Text="Description"></TextBlock>
+            <TextBox Name="DescriptionText" Padding="2"></TextBox>
+            
+            <!-- Status and revision-->
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="2*" />
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                         
+                <StackPanel Margin="0,0,10,0" Grid.Column="0">
+                    <TextBlock FontSize="13" Text="Status"></TextBlock>
+                    <TextBox Background="LightGray" Padding="2" Grid.Column="0"></TextBox>
+                </StackPanel>
+
+                <StackPanel Grid.Column="1">
+                    <TextBlock FontSize="13" Text="Revision"></TextBlock>
+                    <TextBox Background="LightGray" Padding="2" Grid.Column="0"></TextBox>
+                </StackPanel>
+            </Grid>
+
+            <!-- Raw Material-->
+            <TextBlock FontWeight="Bold" FontSize="13" Margin="0,10,0,0" Text="Raw Material"></TextBlock>
+
+            <!-- Material-->
+            <TextBlock FontSize="13" Margin="0,5,0,0" Text="Material"></TextBlock>
+            <ComboBox></ComboBox>
+
+            <!-- Manufacturing information-->
+            <TextBlock FontWeight="Bold" FontSize="13" Margin="0,10,0,0" Text="Manufacturing information"></TextBlock>
+
+            <!-- Work Centres-->
+            <TextBlock FontSize="13" Margin="0,5,0,5" Text="Work Centres"></TextBlock>
+
+            <!-- Checkboxes-->
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <!-- Column 1-->
+                <StackPanel Grid.Column="0" Margin="0,0,10,0">
+                    <CheckBox Checked="Checkbox_Checked" x:Name="WeldCheckBox" Content="Welddsds"/>
+                    <CheckBox Checked="Checkbox_Checked" x:Name="AssemblyCheckBox" Content="Assembly"/>
+                    <CheckBox Checked="Checkbox_Checked" x:Name="PlasmaCheckBox" Content="Plasma"/>
+                    <CheckBox Checked="Checkbox_Checked" x:Name="LaserCheckBox" Content="Laser"/>
+                    <CheckBox Checked="Checkbox_Checked" x:Name="PurchaseCheckBox" Content="Purchase"/>
+                </StackPanel>
+                
+                <!-- Column 2-->
+                <StackPanel Grid.Column="1">
+                    <CheckBox Checked="Checkbox_Checked" x:Name="LatheCheckBox" Content="Lathe"/>
+                    <CheckBox Checked="Checkbox_Checked" x:Name="DrillCheckBox" Content="Drill"/>
+                    <CheckBox Checked="Checkbox_Checked" x:Name="FoldCheckBox" Content="Fold"/>
+                    <CheckBox Checked="Checkbox_Checked" x:Name="RollCheckBox" Content="Roll"/>
+                    <CheckBox Checked="Checkbox_Checked" x:Name="SawCheckBox" Content="Saw"/>
+                </StackPanel>
+            </Grid>
+
+            <!-- Lenght-->
+            <TextBlock FontSize="13" Margin="0,5,0,0" Text="Lenght"></TextBlock>
+            <TextBox Name="Length" Padding="2"></TextBox>
+
+            <!-- Mass-->
+            <TextBlock FontSize="13" Margin="0,5,0,0" Text="Mass"></TextBlock>
+            <TextBox Background="LightGray" Name="MassText" Padding="2"></TextBox>
+
+            <!-- Finish-->
+            <TextBlock FontSize="13" Margin="0,5,0,0" Text="Finish"></TextBlock>
+            <ComboBox SelectionChanged="FinishDropdown_SelectionChanged" Name="FinishDropdown" SelectedIndex="0">
+                <ComboBoxItem>Painted</ComboBoxItem>
+                <ComboBoxItem>Not Painted</ComboBoxItem>
+            </ComboBox>
+
+            <!-- Purchase Information-->
+            <TextBlock FontSize="13" Margin="0,5,0,0" Text="Purchase Information"></TextBlock>
+            <ComboBox SelectedIndex="0">
+                <ComboBoxItem>Rubber</ComboBoxItem>
+                <ComboBoxItem>Bomber</ComboBoxItem>
+            </ComboBox>
+
+            <!-- Supplier Name-->
+            <TextBlock FontSize="13" Margin="0,5,0,0" Text="Supplier Name"></TextBlock>
+            <TextBox Name="SupplierNameText" TextChanged="SupplierNameText_TextChanged" Padding="2"></TextBox>
+
+            <!-- Supplier Code-->
+            <TextBlock FontSize="13" Margin="0,5,0,0" Text="Supplier Code"></TextBlock>
+            <TextBox Name="SupplierCode" Padding="2"></TextBox>
+
+            <!-- Additional Information-->
+            <TextBlock FontWeight="Bold" FontSize="13" Margin="0,10,0,0" Text="Additional Information"></TextBlock>
+
+            <!-- Note-->
+            <TextBlock FontSize="13" Margin="0,5,0,0" Text="Note"></TextBlock>
+            <TextBox Name="NoteText" Padding="2"></TextBox>
+
+            <!-- XML-->
+            <TextBlock FontSize="13" FontWeight="Bold" Margin="0,10,0,0" Text="XML"></TextBlock>
+            
+            <!-- XML Buttons-->
+            <Grid Margin="0,10,0,0">
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <Button x:Name ="LoadButton" Margin="0,0,10,0" Content="Load" Grid.Column="0" Click="LoadButton_Click" Height="20" VerticalAlignment="Top"/>
+                <Button x:Name ="ReadButton" Content="Read" Grid.Column="1" Click="ReadButton_Click" Height="20" VerticalAlignment="Top"/>
+                <Button x:Name ="StartButton" Margin="10,0,0,0" Content="Start" Grid.Column="2" Click="StartButton_Click" RenderTransformOrigin="0.502,0.5"/>
+
+            </Grid>
+        </StackPanel>
+    </Border>
+</Window>

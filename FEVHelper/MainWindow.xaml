@@ -4,9 +4,88 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FEVHelper"
+        xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+        xmlns:cmd="clr-namespace:GalaSoft.MvvmLight.Command;assembly=GalaSoft.MvvmLight.Platform"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        
-    </Grid>
+
+    <DockPanel>
+        <!--Menu top toolbar view-->
+        <Menu DockPanel.Dock="Top" FontSize="14">
+            <MenuItem Header="File"></MenuItem>
+            <MenuItem Header="About"></MenuItem>
+        </Menu>
+
+        <!--Main Grid-->
+        <Grid>
+
+            <!--Grid column config-->
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <!--Margin column nr 0-->
+            <Grid Grid.Column="0"  Margin="5,5,5,5">
+
+                <!--Row Config-->
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="2*"/>
+                </Grid.RowDefinitions>
+
+                <!-- StackPanel inside row nr 0-->
+                <StackPanel  Grid.Row="0" >
+                    <TextBlock Text="Default bench\Components path:" Margin="0 3"/>
+                    <TextBox x:Name="BenchComponentsPathTextBox" Text ="{Binding BenchPath}" Background="#EEE"/>
+
+                    <!-- Load Bench path button-->
+                    <Button Margin="0,5,0,0"
+                        Content="Change default path" 
+                        Name="ComponentsPathSelectorButton"
+                        Command="{Binding ChangeDefaultPathCommand}"
+                        />
+                    <TextBlock Text="Selected Component:" Margin="0 5"/>
+                    <TextBox x:Name="SelectedComponentTextBox" Text ="{Binding LolPath}" Background="#EEE"/>
+                    <TextBlock Text="Selected Component to import channels:" Margin="0 5"/>
+
+                </StackPanel>
+
+                <TreeView x:Name="FolderView" 
+                          Grid.Row="1" 
+                          ItemsSource="{Binding Items}" 
+                          SelectedItemChanged="FolderView_SelectedItemChanged"
+                          Margin="0,5,0,0">
+
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="SelectedItemChanged">
+                            <i:InvokeCommandAction Command="{Binding SelectedItemChangedCommand}" CommandParameter="argument"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+
+                    <TreeView.ItemContainerStyle>
+                        <Style TargetType="{x:Type TreeViewItem}">
+                            <Setter Property="IsExpanded" Value="{Binding IsExpanded, Mode=TwoWay}"/>
+                        </Style>
+                    </TreeView.ItemContainerStyle>
+
+                    <TreeView.ItemTemplate>
+                        <HierarchicalDataTemplate ItemsSource="{Binding Children}">
+                            <StackPanel Orientation="Horizontal">
+                                <Image Width="20" Margin="3"
+                                    Source="{Binding Type,
+                                            Converter={x:Static local:HeaderToImageConverter.Instance}}" />
+                                <TextBlock VerticalAlignment="Center" Text="{Binding Name}" />
+                            </StackPanel>
+                        </HierarchicalDataTemplate>
+                    </TreeView.ItemTemplate>
+                </TreeView>
+            </Grid>
+            <Grid Grid.Column="1" Margin="5,5,5,5">
+                <StackPanel>
+                    <TextBlock Text="Selected Component:" Margin="0 5"/>
+                </StackPanel>
+            </Grid>
+        </Grid>
+    </DockPanel>
 </Window>
