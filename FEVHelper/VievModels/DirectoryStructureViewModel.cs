@@ -1,10 +1,12 @@
 ﻿using FEVHelper.Commands;
 using FEVHelper.Directories;
 using FEVHelper.Directories.Data;
+using FEVHelper.Helpers;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Input;
+
 
 namespace FEVHelper.VievModels
 {
@@ -29,8 +31,14 @@ namespace FEVHelper.VievModels
         /// </summary>
         public ICommand SelectedItemChangedCommand { get; set; }
         /// <summary>
-        /// Default bench path
+        /// Action when choosen button is clicked
         /// </summary>
+        public ICommand ChooseCSVFileCommand { get; set; }
+        /// <summary>
+        /// Actions when Read XML button is cllicked
+        /// </summary>
+        public ICommand ReadXMLFileCommand { get; set; }
+        public string ChosenCSVFlePath { get; set; }
         public string BenchPath { get; set; }
         /// <summary>
         /// Dummy path
@@ -62,7 +70,10 @@ namespace FEVHelper.VievModels
             // Binding CommandHandler logic to view.
             // This sytax is a example of polimorphism
             this.SelectedItemChangedCommand = new CommandHandler(CanExecute, OnSelectionChange);
+
+            this.ChooseCSVFileCommand = new CommandHandler(CanExecute, OnCSVChosen);
         }
+
 
         #endregion
 
@@ -83,12 +94,24 @@ namespace FEVHelper.VievModels
         /// <param name="parameter"></param>
         private void OnSelectionChange(object parameter)
         {
+            // Casting object
             RoutedPropertyChangedEventArgs<object> e = (RoutedPropertyChangedEventArgs<object>)parameter;
+            //Getting new value
             var newValue = e.NewValue;
+            // Casting new value
             DirectoryItemViewModel b = (DirectoryItemViewModel)newValue;
+            // Assigning string value to property
             LolPath = b.FullPath;
         }
-
+        /// <summary>
+        /// Actions when CSV choose button is clicked
+        /// </summary>
+        /// <param name="obj"></param>
+        private void OnCSVChosen(object obj)
+        {
+            // Assign string property to result of SelectCSVFile method
+            ChosenCSVFlePath = FileHelper.SelectCSVFile();
+        }
         #endregion
 
     }

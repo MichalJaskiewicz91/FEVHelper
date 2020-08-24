@@ -36,7 +36,7 @@
 
                 <!-- StackPanel inside row nr 0-->
                 <StackPanel  Grid.Row="0" >
-                    <TextBlock Text="Default bench\Components path:" Margin="0 3"/>
+                    <TextBlock Text="Default path" Margin="0 3"/>
                     <TextBox x:Name="BenchComponentsPathTextBox" Text ="{Binding BenchPath}" Background="#EEE"/>
 
                     <!-- Load Bench path button-->
@@ -45,9 +45,9 @@
                         Name="ComponentsPathSelectorButton"
                         Command="{Binding ChangeDefaultPathCommand}"
                         />
-                    <TextBlock Text="Selected Component:" Margin="0 5"/>
+                    <TextBlock Text="Selected Quantities:" Margin="0 5"/>
                     <TextBox x:Name="SelectedComponentTextBox" Text ="{Binding LolPath}" Background="#EEE"/>
-                    <TextBlock Text="Selected Component to import channels:" Margin="0 5"/>
+                    <TextBlock Text="TreeView:" Margin="0 5"/>
 
                 </StackPanel>
 
@@ -89,9 +89,42 @@
                 </TreeView>
             </Grid>
             <Grid Grid.Column="1" Margin="5,5,5,5">
-                <StackPanel>
-                    <TextBlock Text="Selected Component:" Margin="0 5"/>
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <StackPanel Grid.Row="0" Margin="0,0,0,0" >
+                    <TextBlock Text="Choose types of quantities" FontWeight="Bold" TextAlignment="Center" FontSize="16" Margin="0,0,0,10"/>
+                    <CheckBox Checked="Checkbox_Checked" x:Name="QuantityMeasurements" Content="Measurements"/>
+                    <CheckBox Checked="Checkbox_Checked" x:Name="AssemblyCheckBox" Content="String"/>
+                    <CheckBox Checked="Checkbox_Checked" x:Name="PlasmaCheckBox" Content="Constant"/>
+                    <Button Margin="0,5,0,0"
+                        Content="Read Values" 
+                        Name="Read"
+                        Command="{Binding ReadXMLFileCommand}"
+                        />
                 </StackPanel>
+                
+
+                <StackPanel Grid.Row="1">
+                    <TextBlock Text="Save to CSV" FontWeight="Bold" TextAlignment="Center" FontSize="16" />
+                    <TextBlock Text="Chosen CSV file" Margin="0 3"/>
+                    <TextBox Margin="0,0,0,0" x:Name="CSVPathTextBox" Text ="{Binding ChosenCSVFlePath}" Background="#EEE"/>
+                    <Button Margin="0,5,0,0"
+                        Content="Choose CSV file" 
+                        Name="CSVPathSelectorButton"
+                        Command="{Binding ChooseCSVFileCommand}"
+                        />
+
+                    <Button Margin="0,5,0,0"
+                        Content="Save" 
+                        Name="Save"
+                        Command="{Binding SaveCSVFileCommand}"
+                        />
+                </StackPanel>
+
             </Grid>
         </Grid>
     </DockPanel>

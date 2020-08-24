@@ -81,6 +81,8 @@
     </ApplicationDefinition>
     <Compile Include="Commands\CommandEvent.cs" />
     <Compile Include="Commands\CommandHandler.cs" />
+    <Compile Include="CSV\CSVFile.cs" />
+    <Compile Include="Helpers\FileHelper.cs" />
     <Compile Include="VievModels\Base\BaseViewModel.cs" />
     <Compile Include="VievModels\DirectoryItemViewModel.cs" />
     <Compile Include="VievModels\Base\RelayCommand.cs" />
@@ -88,6 +90,7 @@
     <Compile Include="VievModels\DummyDataViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
+    <Compile Include="XML\XMLFile.cs" />
     <Page Include="Basics.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

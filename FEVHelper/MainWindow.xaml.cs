@@ -23,7 +23,11 @@ namespace FEVHelper
             this.DataContext = new DirectoryStructureViewModel();
         }
         #endregion
-
+        /// <summary>
+        /// Method attached to SelectedItemChangedCommand
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void FolderView_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
 
