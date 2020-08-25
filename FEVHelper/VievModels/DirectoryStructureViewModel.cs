@@ -2,6 +2,9 @@
 using FEVHelper.Directories;
 using FEVHelper.Directories.Data;
 using FEVHelper.Helpers;
+using FEVHelper.Models;
+using FEVHelper.XML;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
@@ -21,6 +24,8 @@ namespace FEVHelper.VievModels
         /// </summary>
         public ObservableCollection<DirectoryItemViewModel> Items { get; set; }
 
+        public List<Quantity> Stringi { get; set; }
+
         /// <summary>
         /// Command that allows changing default path
         /// </summary>
@@ -37,7 +42,7 @@ namespace FEVHelper.VievModels
         /// <summary>
         /// Actions when Read XML button is cllicked
         /// </summary>
-        public ICommand ReadXMLFileCommand { get; set; }
+        public ICommand ReadXMLFileCommand => new CommandHandler(CanExecute, OnXMLRead);
         public string ChosenCSVFlePath { get; set; }
         public string BenchPath { get; set; }
         /// <summary>
@@ -72,6 +77,11 @@ namespace FEVHelper.VievModels
             this.SelectedItemChangedCommand = new CommandHandler(CanExecute, OnSelectionChange);
 
             this.ChooseCSVFileCommand = new CommandHandler(CanExecute, OnCSVChosen);
+
+            Quantity quantity = new Quantity { ID = "First", Description = "Descirption" };
+            this.Stringi = new List<Quantity>();
+            //this.Stringi.Add(quantity);
+
         }
 
 
@@ -112,7 +122,36 @@ namespace FEVHelper.VievModels
             // Assign string property to result of SelectCSVFile method
             ChosenCSVFlePath = FileHelper.SelectCSVFile();
         }
+        /// <summary>
+        /// Read XML values
+        /// </summary>
+        /// <param name="obj"></param>
+        private void OnXMLRead(object obj)
+        {
+            //List of active members
+            List<string> activeMembers = new List<string>();
+            // Cast checkboxes to array of objects
+            var values = (object[])obj;
+
+            // Get quantity measurements isChecked property and add to the list if it's true
+            var quantityMeasurements = (bool)values[0];
+            if (quantityMeasurements == true)
+                activeMembers.Add("QuantityMeasurement");
+            // Get quantity string isChecked property and add to the list if it's true
+            var quantityString = (bool)values[1];
+            if (quantityString == true)
+                activeMembers.Add("QuantityString");
+            // Get quantity constant isChecked property and add to the list if it's true
+            var quantityConstant = (bool)values[2];
+            if (quantityConstant == true)
+                activeMembers.Add("QuantityConstant");
+
+            // Invoke Read method
+            this.Stringi = XMLFile.Read(activeMembers);
+
+        }
         #endregion
 
     }
 }
+
