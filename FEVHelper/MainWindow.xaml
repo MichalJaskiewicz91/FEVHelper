@@ -7,8 +7,8 @@
         xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
         xmlns:cmd="clr-namespace:GalaSoft.MvvmLight.Command;assembly=GalaSoft.MvvmLight.Platform"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    
+        Title="MainWindow" Height="550" Width="800">
+
     <Window.Resources>
         <local:MultiConverter x:Key="Converter"/>
     </Window.Resources>
@@ -35,22 +35,24 @@
                 <!--Row Config-->
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*"/>
-                    <RowDefinition Height="2*"/>
+                    <RowDefinition Height="5*"/>
                 </Grid.RowDefinitions>
 
                 <!-- StackPanel inside row nr 0-->
                 <StackPanel  Grid.Row="0" >
-                    <TextBlock Text="Default path" Margin="0 3"/>
+                    <!--<TextBlock Text="Default quantities path" Margin="0 3"/>
                     <TextBox x:Name="BenchComponentsPathTextBox" Text ="{Binding BenchPath}" Background="#EEE"/>
 
+                    -->
                     <!-- Load Bench path button-->
+                    <!--
                     <Button Margin="0,5,0,0"
                         Content="Change default path" 
                         Name="ComponentsPathSelectorButton"
                         Command="{Binding ChangeDefaultPathCommand}"
-                        />
+                        />-->
                     <TextBlock Text="Selected Quantities:" Margin="0 5"/>
-                    <TextBox x:Name="SelectedComponentTextBox" Text ="{Binding LolPath}" Background="#EEE"/>
+                    <TextBox x:Name="SelectedComponentTextBox" Text ="{Binding QuantitiesPath}" Background="#EEE"/>
                     <TextBlock Text="TreeView:" Margin="0 5"/>
 
                 </StackPanel>
@@ -100,18 +102,38 @@
                 </Grid.RowDefinitions>
 
                 <Grid>
-                    
+
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
-                    
+
                     <StackPanel Grid.Row="0" Margin="0,0,0,0" x:Name="Panel" >
-                    <TextBlock Text="Choose types of quantities" FontWeight="Bold" TextAlignment="Center" FontSize="16" Margin="0,0,0,10"/>
-                    <CheckBox x:Name="QuantityMeasurements" Content="Measurements"/>
-                    <CheckBox x:Name="QuantityString" Content="String"/>
-                    <CheckBox x:Name="QuantityConstant" Content="Constant"/>
-                    <!--<Button Margin="0,5,0,0"
+                        <TextBlock Text="Choose types of quantities" FontWeight="Bold" TextAlignment="Center" FontSize="16" Margin="0,0,0,10"/>
+
+                        <!-- Grid for two checkboxes column-->
+                        <Grid Margin="0,0,0,5">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <StackPanel Grid.Column="0">
+                                <CheckBox IsChecked="True" x:Name="QuantityMeasurements" Content="Measurements"/>
+                                <CheckBox IsChecked="True" x:Name="QuantityString" Content="String"/>
+                                <CheckBox IsChecked="True" x:Name="QuantityConstant" Content="Constant"/>
+                            </StackPanel>
+
+                            <StackPanel Grid.Column="1">
+                                <CheckBox IsChecked="True" x:Name="QuantityReference" Content="Reference"/>
+                                <CheckBox IsChecked="True" x:Name="QuantityFormula" Content="Formula"/>
+                                <CheckBox IsChecked="True" x:Name="QuantityTable" Content="Table"/>
+                                <CheckBox IsChecked="True" x:Name="QuantityLookupTable" Content="LUT"/>
+                            </StackPanel>
+
+                        </Grid>
+
+                        <!--<Button Margin="0,5,0,0"
                         Content="Read Values" 
                         x:Name="Read"
                         Command="{Binding ReadXMLFileCommand}"
@@ -123,11 +145,15 @@
                                     <Binding Path="IsChecked" ElementName="QuantityMeasurements"/>
                                     <Binding Path="IsChecked" ElementName="QuantityString"/>
                                     <Binding Path="IsChecked" ElementName="QuantityConstant"/>
+                                    <Binding Path="IsChecked" ElementName="QuantityReference"/>
+                                    <Binding Path="IsChecked" ElementName="QuantityFormula"/>
+                                    <Binding Path="IsChecked" ElementName="QuantityTable"/>
+                                    <Binding Path="IsChecked" ElementName="QuantityLookupTable"/>
                                 </MultiBinding>
                             </Button.CommandParameter>
                         </Button>
                     </StackPanel>
-                    <ListView Grid.Row="1" Height="auto" Name="ReadItems" ItemsSource="{Binding Stringi}">
+                    <ListView Grid.Row="1" Height="auto" Name="ReadItems" ItemsSource="{Binding ReadQuantities}">
                         <ListView.View>
                             <GridView>
                                 <GridViewColumn Header="ID" DisplayMemberBinding="{Binding ID}"/>
@@ -139,20 +165,37 @@
 
 
                 <StackPanel Grid.Row="1">
-                    <TextBlock Text="Save to CSV" FontWeight="Bold" TextAlignment="Center" FontSize="16" />
-                    <TextBlock Text="Chosen CSV file" Margin="0 3"/>
-                    <TextBox Margin="0,0,0,0" x:Name="CSVPathTextBox" Text ="{Binding ChosenCSVFlePath}" Background="#EEE"/>
+                    <TextBlock Text="Save to CSV" FontWeight="Bold" TextAlignment="Center" FontSize="16" Margin="0,0,0,5"/>
+                    
+                    <CheckBox IsChecked="false" 
+                              x:Name="AutomaticallySaving" 
+                              Content="Automatically saving when quantities are read"
+                              Command="{Binding AutomaticallySavingCommand}"
+                              CommandParameter="{Binding ElementName=AutomaticallySaving}"/>
+                    
+                    <TextBlock Text="Chosen CSV file"
+                               Margin="0 3"/>
+                    <TextBox Margin="0,0,0,0" 
+                             x:Name="CSVPathTextBox" 
+                             Text ="{Binding ChosenCSVFilePath}" 
+                             Background="#EEE"/>
+                    
                     <Button Margin="0,5,0,0"
                         Content="Choose CSV file" 
                         Name="CSVPathSelectorButton"
                         Command="{Binding ChooseCSVFileCommand}"
                         />
 
-                    <Button Margin="0,5,0,0"
+                    <Button Margin="0,5,0,5"
                         Content="Save" 
                         Name="Save"
                         Command="{Binding SaveCSVFileCommand}"
                         />
+                    <CheckBox IsChecked="false" 
+                              x:Name="AutomaticallyOpenCSVFile" 
+                              Content="Automatically open csv file"
+                              Command="{Binding AutomaticallyOpenCSVFileCommand}"
+                              CommandParameter="{Binding ElementName=AutomaticallyOpenCSVFile}"/>
                 </StackPanel>
 
             </Grid>

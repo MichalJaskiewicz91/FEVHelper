@@ -9,19 +9,23 @@ using System.Xml.Linq;
 
 namespace FEVHelper.XML
 {
-    public class XMLFile :IDisposable
+    public class XMLFile
     {
+        public static event EventHandler QuantitiesRead;
+        protected static void OnQuantitiesRead()
+        {
+            QuantitiesRead?.Invoke(typeof(XMLFile), EventArgs.Empty);
+        }
 
-        public static List<Quantity> Read(List<string> list)
+        public static List<Quantity> Read(List<string> list, string quantitiesPath)
         {
             List<IEnumerable<XElement>> descendatsList = new List<IEnumerable<XElement>>();
             Dictionary<string, string> idAndDescription = new Dictionary<string, string>();
             List<Quantity> listQuantity = new List<Quantity>();
             Quantity quantity = new Quantity();
 
-            string lol = list[0];
             // Loading document
-            var document = XDocument.Load(@"E:\Quantities_ADSM_2.xcfm");
+            var document = XDocument.Load(quantitiesPath);
             //try
             //{
 
@@ -35,7 +39,7 @@ namespace FEVHelper.XML
             {
                 descendatsList.Add(document.Descendants(list[i]));
             }
-      
+
             for (int i = 0; i < descendatsList.Count; i++)
             {
                 var filtredData = descendatsList[i].Where(c => ((string)c.Attribute("Parameter") == "true"))
@@ -53,20 +57,15 @@ namespace FEVHelper.XML
                 {
                     Quantity quan = new Quantity { ID = (string)item.ID, Description = (string)item.description };
                     listQuantity.Add(quan);
-;               }
+                    ;
+                }
 
             }
-
-
-            // Retrieving data from Quantity Measurements and saving to the List
-
+            // Publish an event
+            OnQuantitiesRead();
+            // Return list of quantity
             return listQuantity;
 
-        }
-
-        public void Dispose()
-        {
-            throw new NotImplementedException();
         }
     }
 }
