@@ -1,9 +1,7 @@
-﻿using FEVHelper.VievModels;
-using System;
-using System.Collections.Generic;
-using System.IO;
+﻿
+using FEVHelper.Models;
+using FEVHelper.VievModels;
 using System.Windows;
-using System.Windows.Controls;
 
 
 namespace FEVHelper
@@ -18,6 +16,14 @@ namespace FEVHelper
         public MainWindow()
         {
             InitializeComponent();
+            // Declatation of FEV database
+            FEVEntities db = new FEVEntities();
+            var log = db.Logs;
+
+            foreach (var item in log)
+            {
+                
+            }
 
             // Binding UI to viewmodel
             this.DataContext = new DirectoryStructureViewModel();
